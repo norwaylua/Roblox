@@ -1782,7 +1782,7 @@ if (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputTy
                 ConfigDropdown:Set(configs[1])
             end
         end)
-        CustomCredits = CustomCredits or tostring(game:HttpGet("https://raw.githubusercontent.com/RealZzHub/MainV2/main/Misc/Credits.txt"))
+        CustomCredits = CustomCredits or tostring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Roblox/refs/heads/main/UI%20Library/Credit.lua"))
         local Credits = string.split((CustomCredits), ",")
         ConfigTab:NewDropdown("Credits", Credits, function(v)
             return

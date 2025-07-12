@@ -6,7 +6,7 @@ local zzRS = game:GetService("RunService")
 local zzTextService = game:GetService("TextService")
 local zzHttpService = game:GetService("HttpService")
 local zzContentProvider = game:GetService("ContentProvider")
-local Themes = loadstring(game:HttpGet("https://raw.githubusercontent.com/RealZzHub/MainV2/main/Misc/themes.lua", true))()
+local Themes = loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Roblox/refs/heads/main/UI%20Library/Theme.lua", true))()
 
 task.spawn(function() --preloading xd xd xd
     for _,v in pairs(Themes) do

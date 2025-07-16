@@ -8,6 +8,12 @@ local zzHttpService = game:GetService("HttpService")
 local zzContentProvider = game:GetService("ContentProvider")
 local Themes = loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Roblox/refs/heads/main/UI%20Library%20RealZzhubUiRewrite/Theme.lua", true))()
 
+zzUIS.TouchTap:Connect(function(pos, gp)
+    local obj = zzUIS:GetFocusedTextBox()
+    if obj then
+        obj:ReleaseFocus()
+    end
+end)
 task.spawn(function() --preloading xd xd xd
     for _,v in pairs(Themes) do
         local LogoPreload = Instance.new("Decal")
@@ -19,7 +25,7 @@ task.spawn(function() --preloading xd xd xd
 end)
 
 local RainbowSpeed = 7
-local Theme = Themes[2]
+local Theme = Themes[1]
 local ToggleKeybind = "LeftControl"
 local IsFocused = false
 local IList = {} --we do trolling cuz its 11pm and I want to sleep
@@ -254,7 +260,7 @@ function Library:Main(GName)
         NotificationName.Position = UDim2.new(0.13255322, 0, 0.0215053763, 0)
         NotificationName.Size = UDim2.new(0, 75, 0, 26)
         NotificationName.Font = Enum.Font.Gotham
-        NotificationName.Text = "RealZzHub"
+        NotificationName.Text = "Tenery Hub"
         NotificationName.TextColor3 = Color3.fromRGB(255, 255, 255)
         NotificationName.TextSize = 16.000
         NotificationName.TextXAlignment = Enum.TextXAlignment.Left
@@ -266,7 +272,7 @@ function Library:Main(GName)
         NotificationLogo.BorderSizePixel = 0
         NotificationLogo.Position = UDim2.new(0.0130000003, 0, 0.0280000009, 0)
         NotificationLogo.Size = UDim2.new(0, 26, 0, 26)
-        NotificationLogo.Image = "rbxassetid://6771656595"
+        NotificationLogo.Image = "rbxassetid://97859621078390"
 
         NotificationText.Name = "NotificationText"
         NotificationText.Parent = Notification
@@ -551,12 +557,12 @@ function Library:Main(GName)
             ButtonButtonUICorner.Parent = ButtonButton
 
             ButtonButton.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                    pcall(callback)
-                    Ripple(ButtonButton)
-                end
-            end)
-        end
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        pcall(callback)
+        Ripple(ButtonButton)
+    end
+end)
+
 
         function ItemLibrary:NewToggle(TGName, callback, State)
             TGName = tostring(TGName) or "undefined"
@@ -1482,7 +1488,7 @@ if (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputTy
             end
 
             ColorpickerToggle.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                     closeOpen()
                     Ripple(ColorpickerToggleFrame)
                 end
@@ -1659,8 +1665,8 @@ if (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputTy
     end
 
     function TabLibrary:NewConfigTab(CustomCredits) --messy xd
-        local Path = "RealZzHub/" .. game.GameId
-        if not isfolder("RealZzHub") then makefolder("RealZzHub") end
+        local Path = "TeneryHub/" .. game.GameId
+        if not isfolder("TeneryHub") then makefolder("TeneryHub") end
         if not isfolder(Path) then
             makefolder(Path)
         end
@@ -1775,9 +1781,9 @@ if (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputTy
                 configs = {}
                 ConfigDropdown:Clear()
                 wait(0.4)
-                for _, v in pairs(listfiles("RealZzHub/"..game.GameId)) do
-                    table.insert(configs, string.split(v,"RealZzHub/"..game.GameId.."\\")[2])
-                    ConfigDropdown:AddItem(tostring(string.split(v,"RealZzHub/"..game.GameId.."\\")[2]))
+                for _, v in pairs(listfiles("TeneryHub/"..game.GameId)) do
+                    table.insert(configs, string.split(v,"TeneryHub/"..game.GameId.."\\")[2])
+                    ConfigDropdown:AddItem(tostring(string.split(v,"TeneryHub/"..game.GameId.."\\")[2]))
                 end
                 ConfigDropdown:Set(configs[1])
             end

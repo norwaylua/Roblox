@@ -19,7 +19,7 @@ task.spawn(function() --preloading xd xd xd
 end)
 
 local RainbowSpeed = 7
-local Theme = Themes[1]
+local Theme = Themes[2]
 local ToggleKeybind = "LeftControl"
 local IsFocused = false
 local IList = {} --we do trolling cuz its 11pm and I want to sleep

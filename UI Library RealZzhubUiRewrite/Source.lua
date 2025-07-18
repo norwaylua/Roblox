@@ -7,13 +7,6 @@ local zzTextService = game:GetService("TextService")
 local zzHttpService = game:GetService("HttpService")
 local zzContentProvider = game:GetService("ContentProvider")
 local Themes = loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Roblox/refs/heads/main/UI%20Library%20RealZzhubUiRewrite/Theme.lua", true))()
-
-zzUIS.TouchTap:Connect(function(pos, gp)
-    local obj = zzUIS:GetFocusedTextBox()
-    if obj then
-        obj:ReleaseFocus()
-    end
-end)
 task.spawn(function() --preloading xd xd xd
     for _,v in pairs(Themes) do
         local LogoPreload = Instance.new("Decal")

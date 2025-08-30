@@ -1,0 +1,131 @@
+getgenv().AutoFarmV2 = true
+getgenv().FireTools = true
+getgenv().KillAura = true
+getgenv().Range = 1000000
+getgenv().AutoSpinGift = true
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+task.spawn(function()
+    while task.wait() do
+        if not getgenv().AutoFarmV2 then break end
+
+        local character = LocalPlayer.Character
+        local humanoid = character and character:FindFirstChild("Humanoid")
+
+        if not character or not humanoid or humanoid.Health <= 0 then
+            repeat
+                task.wait()
+                character = LocalPlayer.Character
+            until character and character:FindFirstChild("HumanoidRootPart") or not getgenv().AutoFarmV2
+        end
+        if not getgenv().AutoFarmV2 then break end
+
+        if character and character:FindFirstChild("HumanoidRootPart") then
+            local closestEnemy, shortestDistance = nil, math.huge
+
+            for _, v in pairs(workspace.Enemys:GetChildren()) do
+                if v:IsA("Model") and v:FindFirstChild("HumanoidRootPart") then
+                    local distance = (character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude
+                    if distance < shortestDistance then
+                        closestEnemy, shortestDistance = v, distance
+                    end
+                end
+            end
+
+            if closestEnemy then
+                local enemyHRP = closestEnemy:FindFirstChild("HumanoidRootPart")
+                if enemyHRP then
+                    pcall(function()
+                        character.HumanoidRootPart.CFrame = enemyHRP.CFrame + Vector3.new(0, -6.1, 0)
+                        local bv = Instance.new("BodyVelocity")
+                        bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+                        bv.Velocity = Vector3.new(0, 0, 0)
+                        bv.Parent = character.HumanoidRootPart
+                        task.wait()
+                        bv:Destroy()
+                    end)
+                end
+            else
+                pcall(function()
+                    character.HumanoidRootPart.CFrame = CFrame.new(-17.3815, 4.6, 95.7877)
+                    local bv = Instance.new("BodyVelocity")
+                    bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+                    bv.Velocity = Vector3.new(0, 0, 0)
+                    bv.Parent = character.HumanoidRootPart
+                    task.wait()
+                    bv:Destroy()
+                end)
+            end
+        end
+    end
+end)
+
+task.spawn(function()
+    while task.wait() do
+        if not getgenv().FireTools then break end
+
+        local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local hum = char:FindFirstChildOfClass("Humanoid")
+
+        if hum then
+            local tool = LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
+            if tool and not char:FindFirstChildWhichIsA("Tool") then
+                hum:EquipTool(tool)
+            end
+
+            local equipped = char:FindFirstChildWhichIsA("Tool")
+            if equipped then
+                equipped:Activate()
+            end
+        end
+    end
+end)
+
+RunService.RenderStepped:Connect(function()
+    if not getgenv().KillAura then return end
+    local char = LocalPlayer.Character
+    if not char then return end
+
+    local tool = char:FindFirstChildOfClass("Tool")
+    if not tool or not tool:FindFirstChild("Handle") then return end
+
+    for _, v in pairs(workspace.Enemys:GetChildren()) do
+        if v and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart") then
+            if LocalPlayer:DistanceFromCharacter(v.HumanoidRootPart.Position) <= getgenv().Range then
+                tool:Activate()
+                for _, part in ipairs(v:GetChildren()) do
+                    if part:IsA("BasePart") then
+                        firetouchinterest(tool.Handle, part, 0)
+                        firetouchinterest(tool.Handle, part, 1)
+                    end
+                end
+            end
+        end
+    end
+end)
+
+task.spawn(function()
+    while task.wait(2) do
+        if not getgenv().AutoSpinGift then break end
+        pcall(function()
+            local spinSignal = game:GetService("ReplicatedStorage"):WaitForChild("Signals"):WaitForChild("Spin")
+            spinSignal:InvokeServer()
+        end)
+        for gift = 1, 12 do
+            pcall(function()
+                local args = { "Gift" .. gift }
+                game:GetService("ReplicatedStorage"):WaitForChild("Signals"):WaitForChild("ClaimGift"):FireServer(unpack(args))
+            end)
+            task.wait(0.2)
+        end
+    end
+end)
+
+local vu = game:GetService("VirtualUser")
+LocalPlayer.Idled:Connect(function()
+    vu:CaptureController()
+    vu:ClickButton2(Vector2.new())
+end)

@@ -5,6 +5,7 @@ getgenv().KillAura = true
 getgenv().Range = 1000000 -- dont edit this code frfr
 getgenv().AutoSpinGift = false -- most anyoning 
 ]]--
+if game.PlaceId == 79704652105017 then
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -377,3 +378,4 @@ LocalPlayer.Idled:Connect(function()
     vu:CaptureController()
     vu:ClickButton2(Vector2.new())
 end)
+end

@@ -1,9 +1,10 @@
+--[[
 getgenv().AutoFarmV2 = true
 getgenv().FireTools = true
 getgenv().KillAura = true
-getgenv().Range = 1000000
-getgenv().AutoSpinGift = true
-
+getgenv().Range = 1000000 -- dont edit this code frfr
+getgenv().AutoSpinGift = false -- most anyoning 
+]]--
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer

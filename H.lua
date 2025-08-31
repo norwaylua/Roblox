@@ -25,7 +25,8 @@ if game.PlaceId == 79704652105017 then
             task.wait(0.15)
         end
     end)
-    
+-- skip ui timers -- reconnect -- target ui
+loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Alwi-script/refs/heads/main/Alua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Alwi-script/refs/heads/main/Auto%20Reconnect.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Alwi-script/refs/heads/main/Skip%20timer.lua", true))()
 local Players = game:GetService("Players")
@@ -52,8 +53,9 @@ screenGui.Name = "TeneryHubNotif"
 screenGui.IgnoreGuiInset = true
 screenGui.ResetOnSpawn = false
 screenGui.Parent = playerGui
-
-
+if LocalPlayer.PlayerGui:FindFirstChild("TeneryHubNotif") then
+    return
+end
 local frame = Instance.new("Frame")
 frame.Name = "Container"
 frame.AnchorPoint = Vector2.new(0.5, 0.5)

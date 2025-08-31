@@ -6,6 +6,7 @@ getgenv().Range = 1000000 -- dont edit this code frfr
 getgenv().AutoSpinGift = false -- most anyoning 
 ]]--
 if game.PlaceId == 79704652105017 then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Alwi-script/refs/heads/main/Auto%20Reconnect.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Alwi-script/refs/heads/main/Skip%20timer.lua", true))()
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")

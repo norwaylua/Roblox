@@ -1,11 +1,4 @@
---[[
-getgenv().AutoFarmV2 = true
-getgenv().FireTools = true
-getgenv().KillAura = true
-getgenv().Range = 1000000 -- dont edit this code frfr
-getgenv().AutoSpinGift = false -- most anyoning 
-]]--
-
+-- hi
 if game.PlaceId == 79704652105017 then
     local StarterGui = game:GetService("StarterGui")
     local function notify(props)

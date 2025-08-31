@@ -255,7 +255,6 @@ btnYes.MouseButton1Click:Connect(function()
     closeAndDestroy()
 end)
 local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 
 task.spawn(function()
@@ -265,22 +264,44 @@ task.spawn(function()
         local character = LocalPlayer.Character
         local humanoid = character and character:FindFirstChild("Humanoid")
 
-        if not character or not humanoid or humanoid.Health <= 0 then
+        if not character then
             repeat
                 task.wait()
                 character = LocalPlayer.Character
-            until character and character:FindFirstChild("HumanoidRootPart") or not getgenv().AutoFarmV2
+            until character or not getgenv().AutoFarmV2
         end
+
+        if not humanoid then
+            repeat
+                task.wait()
+                humanoid = character and character:FindFirstChild("Humanoid")
+            until humanoid or not getgenv().AutoFarmV2
+        end
+
+        if humanoid and humanoid.Health <= 0 then
+            repeat
+                task.wait()
+                character = LocalPlayer.Character
+                humanoid = character and character:FindFirstChild("Humanoid")
+            until (humanoid and humanoid.Health > 0) or not getgenv().AutoFarmV2
+        end
+
         if not getgenv().AutoFarmV2 then break end
 
         if character and character:FindFirstChild("HumanoidRootPart") then
-            local closestEnemy, shortestDistance = nil, math.huge
+            local closestEnemy = nil
+            local shortestDistance = math.huge
 
             for _, v in pairs(workspace.Enemys:GetChildren()) do
-                if v:IsA("Model") and v:FindFirstChild("HumanoidRootPart") then
-                    local distance = (character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude
-                    if distance < shortestDistance then
-                        closestEnemy, shortestDistance = v, distance
+                if v:IsA("Model") then
+                    local hum = v:FindFirstChild("Humanoid")
+                    local hrp = v:FindFirstChild("HumanoidRootPart")
+                    if hum and hrp and hum.Health > 0 then
+                        local distance = (character.HumanoidRootPart.Position - hrp.Position).Magnitude
+                        if distance < shortestDistance then
+                            closestEnemy = v
+                            shortestDistance = distance
+                        end
                     end
                 end
             end

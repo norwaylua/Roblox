@@ -317,6 +317,13 @@ task.spawn(function()
                 if v:IsA("Model") then
                     local hum = v:FindFirstChild("Humanoid")
                     local hrp = v:FindFirstChild("HumanoidRootPart")
+
+                    for _, part in pairs(v:GetDescendants()) do
+                        if part:IsA("BasePart") then
+                            part.CanCollide = false
+                        end
+                    end
+
                     if hum and hrp and hum.Health > 0 then
                         local distance = (character.HumanoidRootPart.Position - hrp.Position).Magnitude
                         if distance < shortestDistance then
@@ -354,7 +361,7 @@ task.spawn(function()
         end
     end
 end)
-
+    
 task.spawn(function()
     while task.wait() do
         if not getgenv().FireTools then break end

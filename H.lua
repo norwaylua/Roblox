@@ -53,9 +53,6 @@ screenGui.Name = "TeneryHubNotif"
 screenGui.IgnoreGuiInset = true
 screenGui.ResetOnSpawn = false
 screenGui.Parent = playerGui
-if LocalPlayer.PlayerGui:FindFirstChild("TeneryHubNotif") then
-    return
-end
 local frame = Instance.new("Frame")
 frame.Name = "Container"
 frame.AnchorPoint = Vector2.new(0.5, 0.5)

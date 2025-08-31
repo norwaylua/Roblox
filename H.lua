@@ -1,6 +1,23 @@
--- hi
+--[[
+getgenv().AutoFarmV2 = true
+getgenv().FireTools = true
+getgenv().KillAura = true
+getgenv().Range = 1000000 -- dont edit this code frfr
+getgenv().AutoSpinGift = false -- most anyoning 
+]]--
+getgenv().AutoFarmV2 = true
+getgenv().FireTools = true
+getgenv().KillAura = true
+getgenv().Range = 1000000 -- dont edit this code frfr
+getgenv().AutoSpinGift = false -- most any
 if game.PlaceId == 79704652105017 then
+local executor = (identifyexecutor and identifyexecutor()) or "Unknown"
+
+if executor == "Delta" then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Roblox/refs/heads/main/Delta%20support.lua"))()
+else
     local StarterGui = game:GetService("StarterGui")
+    if identif
     local function notify(props)
         pcall(function()
             StarterGui:SetCore("SendNotification", props)

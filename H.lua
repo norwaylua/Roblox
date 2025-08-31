@@ -5,7 +5,27 @@ getgenv().KillAura = true
 getgenv().Range = 1000000 -- dont edit this code frfr
 getgenv().AutoSpinGift = false -- most anyoning 
 ]]--
+
 if game.PlaceId == 79704652105017 then
+    local StarterGui = game:GetService("StarterGui")
+    local function notify(props)
+        pcall(function()
+            StarterGui:SetCore("SendNotification", props)
+        end)
+    end
+
+    task.spawn(function()
+        notify({Title = "Tenery hub", Text = "Initializing…", Duration = 2})
+        for p = 0, 100, 10 do
+            notify({
+                Title = "Tenery hub",
+                Text  = ("Loading… %d%%"):format(p),
+                Duration = 0.3
+            })
+            task.wait(0.15)
+        end
+    end)
+    
 loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Alwi-script/refs/heads/main/Auto%20Reconnect.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Alwi-script/refs/heads/main/Skip%20timer.lua", true))()
 local Players = game:GetService("Players")
@@ -401,4 +421,7 @@ LocalPlayer.Idled:Connect(function()
     vu:CaptureController()
     vu:ClickButton2(Vector2.new())
 end)
+    task.delay(2, function()
+        notify({Title = "Tenery hub", Text = "Loaded successfully!", Duration = 4})
+    end)
 end

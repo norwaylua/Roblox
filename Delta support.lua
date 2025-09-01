@@ -501,6 +501,8 @@ end)
     end)
 
     LocalPlayer.CharacterAdded:Connect(function(char)
+    Bypass()
+    StartFarm()
     char:WaitForChild("Humanoid")
     task.wait(2)
 
@@ -508,8 +510,6 @@ end)
         EquipToolByName(Config.SelectedTool)
         Button.Text = "Selected: " .. Config.SelectedTool
     end
-    Bypass()
-    StartFarm()
 end)
 
 

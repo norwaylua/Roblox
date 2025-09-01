@@ -4,7 +4,7 @@ getgenv().AutoFarmV2 = true
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
-local function bypass()
+local function Bypass()
 firetouchinterest(
     game.Players.LocalPlayer.Character.HumanoidRootPart,
     workspace.Teleport1,
@@ -74,7 +74,7 @@ task.spawn(function()
                 local enemyHRP = closestEnemy:FindFirstChild("HumanoidRootPart")
                 if enemyHRP then
                     pcall(function()
-                        character.HumanoidRootPart.CFrame = enemyHRP.CFrame + Vector3.new(0, 0, 3)
+                        character.HumanoidRootPart.CFrame = enemyHRP.CFrame + Vector3.new(0, -6.2, 0)
                         local bv = Instance.new("BodyVelocity")
                         bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
                         bv.Velocity = Vector3.new(0, 0, 0)

@@ -107,7 +107,7 @@ if game.PlaceId == 79704652105017 then
     desc.Size = UDim2.new(0, 220, 0, 48)
     desc.Position = UDim2.new(0, 100, 0, 40)
     desc.BackgroundTransparency = 1
-    desc.Text = "This Script patched fixed soon"
+    desc.Text = "This UI Made By Cici Fixed by alwi"
     desc.Font = Enum.Font.Gotham
     desc.TextSize = 16
     desc.TextColor3 = Color3.fromRGB(220, 220, 220)
@@ -154,71 +154,79 @@ if game.PlaceId == 79704652105017 then
     end)
 
     --// AutoFAutoFarm
---[[
-    local Players = game:GetService("Players")
+
+    for _, v in pairs(workspace.WarMap.Model:GetDescendants()) do
+    if v.Name == "KickParts" then
+        v:Destroy()
+    end
+end
+
+local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
-task.spawn(function()
-    while task.wait() do
-        if not getgenv().AutoFarmV2 then break end
+local function Bypass()
+    firetouchinterest(LocalPlayer.Character.HumanoidRootPart, workspace.Teleport1, 0)
+    task.wait(0.1)
+    firetouchinterest(LocalPlayer.Character.HumanoidRootPart, workspace.Teleport1, 1)
+end
 
-        local character = LocalPlayer.Character
-        local humanoid = character and character:FindFirstChild("Humanoid")
+local function StartFarm()
+    task.spawn(function()
+        while task.wait() do
+            if not getgenv().AutoFarmV2 then break end
 
-        if not character then
-            repeat
-                task.wait()
-                character = LocalPlayer.Character
-            until character or not getgenv().AutoFarmV2
-        end
+            local character = LocalPlayer.Character
+            local humanoid = character and character:FindFirstChild("Humanoid")
 
-        if not humanoid then
-            repeat
-                task.wait()
-                humanoid = character and character:FindFirstChild("Humanoid")
-            until humanoid or not getgenv().AutoFarmV2
-        end
+            if not character or not humanoid then continue end
 
-        if humanoid and humanoid.Health <= 0 then
-            repeat
-                task.wait()
-                character = LocalPlayer.Character
-                humanoid = character and character:FindFirstChild("Humanoid")
-            until (humanoid and humanoid.Health > 0) or not getgenv().AutoFarmV2
-        end
+            if humanoid.Health <= 0 then
+                repeat
+                    task.wait()
+                    if not getgenv().AutoFarmV2 then return end
+                until humanoid.Health > 0
+            end
 
-        if not getgenv().AutoFarmV2 then break end
+            if character:FindFirstChild("HumanoidRootPart") then
+                local closestEnemy, shortestDistance = nil, math.huge
 
-        if character and character:FindFirstChild("HumanoidRootPart") then
-            local closestEnemy = nil
-            local shortestDistance = math.huge
+                for _, v in pairs(workspace.Enemys:GetChildren()) do
+                    if v:IsA("Model") then
+                        local hum = v:FindFirstChild("Humanoid")
+                        local hrp = v:FindFirstChild("HumanoidRootPart")
 
-            for _, v in pairs(workspace.Enemys:GetChildren()) do
-                if v:IsA("Model") then
-                    local hum = v:FindFirstChild("Humanoid")
-                    local hrp = v:FindFirstChild("HumanoidRootPart")
-
-                    for _, part in pairs(v:GetDescendants()) do
-                        if part:IsA("BasePart") then
-                            part.CanCollide = false
+                        for _, part in pairs(v:GetDescendants()) do
+                            if part:IsA("BasePart") then
+                                part.CanCollide = false
+                            end
                         end
-                    end
 
-                    if hum and hrp and hum.Health > 0 then
-                        local distance = (character.HumanoidRootPart.Position - hrp.Position).Magnitude
-                        if distance < shortestDistance then
-                            closestEnemy = v
-                            shortestDistance = distance
+                        if hum and hrp and hum.Health > 0 then
+                            local distance = (character.HumanoidRootPart.Position - hrp.Position).Magnitude
+                            if distance < shortestDistance then
+                                closestEnemy = v
+                                shortestDistance = distance
+                            end
                         end
                     end
                 end
-            end
 
-            if closestEnemy then
-                local enemyHRP = closestEnemy:FindFirstChild("HumanoidRootPart")
-                if enemyHRP then
+                if closestEnemy then
+                    local enemyHRP = closestEnemy:FindFirstChild("HumanoidRootPart")
+                    if enemyHRP then
+                        pcall(function()
+                            character.HumanoidRootPart.CFrame = enemyHRP.CFrame + Vector3.new(0, -6.2, 0)
+                            local bv = Instance.new("BodyVelocity")
+                            bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+                            bv.Velocity = Vector3.new(0, 0, 0)
+                            bv.Parent = character.HumanoidRootPart
+                            task.wait()
+                            bv:Destroy()
+                        end)
+                    end
+                else
                     pcall(function()
-                        character.HumanoidRootPart.CFrame = enemyHRP.CFrame + Vector3.new(0, -6.1, 0)
+                        character.HumanoidRootPart.CFrame = CFrame.new(103.74857330322266, 8.06245231628418, -75.89685821533203)
                         local bv = Instance.new("BodyVelocity")
                         bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
                         bv.Velocity = Vector3.new(0, 0, 0)
@@ -227,39 +235,21 @@ task.spawn(function()
                         bv:Destroy()
                     end)
                 end
-            else
-                pcall(function()
-                    character.HumanoidRootPart.CFrame = CFrame.new(-17.3815, 4.6, 95.7877)
-                    local bv = Instance.new("BodyVelocity")
-                    bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
-                    bv.Velocity = Vector3.new(0, 0, 0)
-                    bv.Parent = character.HumanoidRootPart
-                    task.wait()
-                    bv:Destroy()
-                end)
-            end
-        end
-    end
-end)
-
-    --// FireTools
-    task.spawn(function()
-        while task.wait() do
-            if not getgenv().FireTools then break end
-            local char = LocalPlayer.Character
-            local hum = char and char:FindFirstChildOfClass("Humanoid")
-            if hum then
-                local tool = LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
-                if tool and not char:FindFirstChildWhichIsA("Tool") then
-                    hum:EquipTool(tool)
-                end
-                local equipped = char:FindFirstChildWhichIsA("Tool")
-                if equipped then
-                    equipped:Activate()
-                end
             end
         end
     end)
+end
+
+LocalPlayer.CharacterAdded:Connect(function(char)
+    task.wait(1)
+    Bypass()
+    wait(2)
+    StartFarm()
+end)
+
+Bypass()
+wait(2)
+StartFarm()
 
     --// KillAura
     RunService.RenderStepped:Connect(function()
@@ -284,7 +274,7 @@ end)
         end
     end)
 
-    --// Auto Spin + Gifts
+    
     task.spawn(function()
         while task.wait(2) do
             if not getgenv().AutoSpinGift then break end
@@ -299,8 +289,7 @@ end)
             end
         end
     end)
-]]
-    -- Anti AFK
+    
     local vu = game:GetService("VirtualUser")
     LocalPlayer.Idled:Connect(function()
         vu:CaptureController()

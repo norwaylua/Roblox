@@ -92,7 +92,7 @@ task.spawn(function()
                 end
             else
                 pcall(function()
-                    character.HumanoidRootPart.CFrame = CFrame.new(-17.3815, 4.6, 95.7877)
+                    character.HumanoidRootPart.CFrame = CFrame.new(103.74857330322266, 8.06245231628418, -75.89685821533203)
                     local bv = Instance.new("BodyVelocity")
                     bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
                     bv.Velocity = Vector3.new(0, 0, 0)

@@ -4,7 +4,6 @@ getgenv().FireTools = true
 getgenv().KillAura = true
 getgenv().Range = 1000000 -- dont edit this code frfr
 getgenv().AutoSpinGift = false -- most anyoning 
-
 if game.PlaceId == 79704652105017 then
     local executor = (identifyexecutor and identifyexecutor()) or "Unknown"
 
@@ -240,6 +239,26 @@ local function StartFarm()
     end)
 end
 
+task.spawn(function()
+    while task.wait() do
+        if not getgenv().FireTools then break end
+
+        local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local hum = char:FindFirstChildOfClass("Humanoid")
+
+        if hum then
+            local tool = LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
+            if tool and not char:FindFirstChildWhichIsA("Tool") then
+                hum:EquipTool(tool)
+            end
+
+            local equipped = char:FindFirstChildWhichIsA("Tool")
+            if equipped then
+                equipped:Activate()
+            end
+        end
+    end
+end)
 
     --// KillAura
     RunService.RenderStepped:Connect(function()
@@ -263,27 +282,6 @@ end
             end
         end
     end)
-
-    task.spawn(function()
-    while task.wait() do
-        if not getgenv().FireTools then break end
-
-        local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-        local hum = char:FindFirstChildOfClass("Humanoid")
-
-        if hum then
-            local tool = LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
-            if tool and not char:FindFirstChildWhichIsA("Tool") then
-                hum:EquipTool(tool)
-            end
-
-            local equipped = char:FindFirstChildWhichIsA("Tool")
-            if equipped then
-                equipped:Activate()
-            end
-        end
-    end
-end)
 
     
     task.spawn(function()
@@ -322,3 +320,4 @@ StartFarm()
         notify({Title = "Tenery hub", Text = "Loaded successfully!", Duration = 4})
     end)
 end
+    

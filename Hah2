@@ -1,18 +1,21 @@
 getgenv().AutoFarmV2 = true
-getgenv().FireTools = true
+
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
 local function bypass()
-    local char = LocalPlayer.Character
-    if char and char:FindFirstChild("HumanoidRootPart") and workspace:FindFirstChild("Teleport1") then
-        local hrp = char.HumanoidRootPart
-        local tp = workspace.Teleport1
-        firetouchinterest(hrp, tp, 0)
-        task.wait(0.2)
-        firetouchinterest(hrp, tp, 1)
-    end
+firetouchinterest(
+    game.Players.LocalPlayer.Character.HumanoidRootPart,
+    workspace.Teleport1,
+    0
+)
+task.wait(0.1)
+firetouchinterest(
+    game.Players.LocalPlayer.Character.HumanoidRootPart,
+    workspace.Teleport1,
+    1
+)
 end
 
 task.spawn(function()
@@ -25,11 +28,13 @@ task.spawn(function()
             repeat task.wait()
                 character = LocalPlayer.Character
             until character or not getgenv().AutoFarmV2
+            Bypass()
         end
         if not humanoid then
             repeat task.wait()
                 humanoid = character and character:FindFirstChild("Humanoid")
             until humanoid or not getgenv().AutoFarmV2
+            Bypass()
         end
 
         if humanoid and humanoid.Health <= 0 then
@@ -37,8 +42,6 @@ task.spawn(function()
                 character = LocalPlayer.Character
                 humanoid = character and character:FindFirstChild("Humanoid")
             until (humanoid and humanoid.Health > 0) or not getgenv().AutoFarmV2
-            task.wait(3)
-            Bypass()
         end
 
         if not getgenv().AutoFarmV2 then break end
@@ -94,3 +97,4 @@ task.spawn(function()
         end
     end
 end)
+Bypass()

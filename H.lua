@@ -41,7 +41,6 @@ if game.PlaceId == 79704652105017 then
     end)
 
     -- Load required scripts
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Roblox/refs/heads/main/Tools.lua"))()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Alwi-script/refs/heads/main/Alua"))()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Alwi-script/refs/heads/main/Auto%20Reconnect.lua"))()
 
@@ -241,7 +240,26 @@ local function StartFarm()
     end)
 end
 
-    
+task.spawn(function()
+    while task.wait() do
+        if not getgenv().FireTools then break end
+
+        local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local hum = char:FindFirstChildOfClass("Humanoid")
+
+        if hum then
+            local tool = LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
+            if tool and not char:FindFirstChildWhichIsA("Tool") then
+                hum:EquipTool(tool)
+            end
+
+            local equipped = char:FindFirstChildWhichIsA("Tool")
+            if equipped then
+                equipped:Activate()
+            end
+        end
+    end
+end)
 
     --// KillAura
     RunService.RenderStepped:Connect(function()
@@ -289,9 +307,11 @@ end
     end)
 
     LocalPlayer.CharacterAdded:Connect(function(char)
+    task.wait(1)
     Bypass()
+    wait(2)
     StartFarm()
-    end)
+end)
 
 Bypass()
 wait(2)

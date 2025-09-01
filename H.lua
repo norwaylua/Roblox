@@ -240,17 +240,6 @@ local function StartFarm()
     end)
 end
 
-LocalPlayer.CharacterAdded:Connect(function(char)
-    task.wait(1)
-    Bypass()
-    wait(2)
-    StartFarm()
-end)
-
-Bypass()
-wait(2)
-StartFarm()
-
     --// KillAura
     RunService.RenderStepped:Connect(function()
         if not getgenv().KillAura then return end
@@ -296,6 +285,17 @@ StartFarm()
         vu:ClickButton2(Vector2.new())
     end)
 
+    LocalPlayer.CharacterAdded:Connect(function(char)
+    task.wait(1)
+    Bypass()
+    wait(2)
+    StartFarm()
+end)
+
+Bypass()
+wait(2)
+StartFarm()
+    
     task.delay(2, function()
         notify({Title = "Tenery hub", Text = "Loaded successfully!", Duration = 4})
     end)

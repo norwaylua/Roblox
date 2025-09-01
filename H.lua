@@ -388,15 +388,6 @@ LocalPlayer.Backpack.ChildAdded:Connect(RefreshDropdown)
 LocalPlayer.Backpack.ChildRemoved:Connect(RefreshDropdown)
 Refresh.MouseButton1Click:Connect(RefreshDropdown)
 
-LocalPlayer.CharacterAdded:Connect(function(char)
-    char:WaitForChild("Humanoid")
-    task.wait(2)
-    if Config.SelectedTool then
-        EquipToolByName(Config.SelectedTool)
-        Button.Text = "Selected: " .. Config.SelectedTool
-    end
-end)
-
 local Open = false
 Button.MouseButton1Click:Connect(function()
     Open = not Open
@@ -519,9 +510,14 @@ end)
     end)
 
     LocalPlayer.CharacterAdded:Connect(function(char)
-    task.wait(1)
+    char:WaitForChild("Humanoid")
+    task.wait(2)
+
+    if Config.SelectedTool then
+        EquipToolByName(Config.SelectedTool)
+        Button.Text = "Selected: " .. Config.SelectedTool
+    end
     Bypass()
-    wait(2)
     StartFarm()
 end)
 

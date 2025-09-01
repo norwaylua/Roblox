@@ -381,7 +381,7 @@ Refresh.MouseButton1Click:Connect(RefreshDropdown)
 
 LocalPlayer.CharacterAdded:Connect(function(char)
     char:WaitForChild("Humanoid")
-    task.wait(1)
+    task.wait(2)
     if Config.SelectedTool then
         EquipToolByName(Config.SelectedTool)
         Button.Text = "Selected: " .. Config.SelectedTool

@@ -88,9 +88,10 @@ end
 LocalPlayer.CharacterAdded:Connect(function(char)
     task.wait(1)
     Bypass()
+    wait(2)
     StartFarm()
 end)
 
-task.wait(1)
 Bypass()
+wait(2)
 StartFarm()

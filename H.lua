@@ -241,26 +241,7 @@ local function StartFarm()
     end)
 end
 
-task.spawn(function()
-    while task.wait() do
-        if not getgenv().FireTools then break end
 
-        local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-        local hum = char:FindFirstChildOfClass("Humanoid")
-
-        if hum then
-            local tool = LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
-            if tool and not char:FindFirstChildWhichIsA("Tool") then
-                hum:EquipTool(tool)
-            end
-
-            local equipped = char:FindFirstChildWhichIsA("Tool")
-            if equipped then
-                equipped:Activate()
-            end
-        end
-    end
-end)
 
     --// KillAura
     RunService.RenderStepped:Connect(function()

@@ -1,5 +1,10 @@
 getgenv().AutoFarmV2 = true
 
+for _, v in pairs(workspace.WarMap.Model:GetDescendants()) do
+    if v.Name == "KickParts" then
+        v:Destroy()
+    end
+end
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -26,19 +31,21 @@ task.spawn(function()
         local humanoid = character and character:FindFirstChild("Humanoid")
         if not character then
             repeat task.wait()
+            Bypass()
                 character = LocalPlayer.Character
             until character or not getgenv().AutoFarmV2
             Bypass()
         end
         if not humanoid then
             repeat task.wait()
+            Bypass()
                 humanoid = character and character:FindFirstChild("Humanoid")
             until humanoid or not getgenv().AutoFarmV2
-            Bypass()
         end
 
         if humanoid and humanoid.Health <= 0 then
             repeat task.wait()
+                Bypass()
                 character = LocalPlayer.Character
                 humanoid = character and character:FindFirstChild("Humanoid")
             until (humanoid and humanoid.Health > 0) or not getgenv().AutoFarmV2

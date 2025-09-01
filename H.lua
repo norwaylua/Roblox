@@ -107,7 +107,7 @@ if game.PlaceId == 79704652105017 then
     desc.Size = UDim2.new(0, 220, 0, 48)
     desc.Position = UDim2.new(0, 100, 0, 40)
     desc.BackgroundTransparency = 1
-    desc.Text = "This UI made By cici"
+    desc.Text = "This Script patched fixed soon"
     desc.Font = Enum.Font.Gotham
     desc.TextSize = 16
     desc.TextColor3 = Color3.fromRGB(220, 220, 220)
@@ -153,7 +153,8 @@ if game.PlaceId == 79704652105017 then
         end
     end)
 
-    --// AutoFarm
+    --// AutoFAutoFarm
+--[[
     local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
@@ -298,7 +299,7 @@ end)
             end
         end
     end)
-
+]]
     -- Anti AFK
     local vu = game:GetService("VirtualUser")
     LocalPlayer.Idled:Connect(function()

@@ -4,15 +4,6 @@ getgenv().FireTools = true
 getgenv().KillAura = true
 getgenv().Range = 1000000 -- dont edit this code frfr
 getgenv().AutoSpinGift = false -- most anyoning 
-if game.PlaceId == 79704652105017 then
-    local executor = (identifyexecutor and identifyexecutor()) or "Unknown"
-
-    -- Delta support
-    if executor == "Delta" then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Roblox/refs/heads/main/Delta%20support.lua"))()
-        return
-    end
-
     local StarterGui = game:GetService("StarterGui")
     local TweenService = game:GetService("TweenService")
     local Players = game:GetService("Players")

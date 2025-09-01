@@ -217,7 +217,7 @@ task.spawn(function()
                 local enemyHRP = closestEnemy:FindFirstChild("HumanoidRootPart")
                 if enemyHRP then
                     pcall(function()
-                        character.HumanoidRootPart.CFrame = enemyHRP.CFrame + Vector3.new(0, -6.1, 0)
+                        character.HumanoidRootPart.CFrame = enemyHRP.CFrame + Vector3.new(0, 0, 3)
                         local bv = Instance.new("BodyVelocity")
                         bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
                         bv.Velocity = Vector3.new(0, 0, 0)

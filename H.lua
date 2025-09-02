@@ -262,7 +262,7 @@ function StartFarm()
                     bv:Destroy()
                 end
             else
-                hrp.CFrame = CFrame.new(-14.75, -0.03, -147.22)
+                hrp.CFrame = CFrame.new(-14.7518082, -0.0393581912, -147.224426, 0.999967396, -0.00795417745, -0.00140253874, -5.14597115e-11, 0.173648492, -0.98480767, 0.00807688385, 0.984775603, 0.173642829)
                 local bv = Instance.new("BodyVelocity")
                 bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
                 bv.Velocity = Vector3.new(0, 0, 0)
@@ -291,13 +291,11 @@ LocalPlayer.CharacterAdded:Connect(function(char)
             DeathCount += 1
             Notify("Death " .. DeathCount .. "/" .. MaxDeaths)
             if DeathCount >= MaxDeaths then
-                StopFarm("Dead =" .. MaxDeaths .. " times")
+                StopFarm("Dead :3 " .. MaxDeaths .. " times")
             end
         end)
 
         
-
-
 
 
     --// KillAura

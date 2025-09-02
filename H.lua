@@ -170,6 +170,7 @@ local function Bypass()
     task.wait(0.1)
     firetouchinterest(LocalPlayer.Character.HumanoidRootPart, workspace.Teleport1, 1)
 end
+    
 
 local function StartFarm()
     task.spawn(function()
@@ -227,7 +228,7 @@ local function StartFarm()
                     end
                 else
                     pcall(function()
-                        character.HumanoidRootPart.CFrame = CFrame.new(103.74857330322266, 8.06245231628418, -75.89685821533203)
+                        character.HumanoidRootPart.CFrame = CFrame.new(0.8440650701522827, -3.1204583644866943, -157.3159637451172)
                         local bv = Instance.new("BodyVelocity")
                         bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
                         bv.Velocity = Vector3.new(0, 0, 0)
@@ -295,6 +296,7 @@ end
             local hrp = char:FindFirstChild("HumanoidRootPart")
 
             if humanoid and hrp then
+                wait(1)
                 Bypass()
                 task.wait(2)
                 while humanoid and humanoid.Health > 0 do

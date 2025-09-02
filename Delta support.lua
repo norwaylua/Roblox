@@ -343,10 +343,13 @@ end)
     end)
 
     if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
-    Bypass()
-    task.wait(1.5)
-    StartFarm()
+    if DeathCount < MaxDeaths then
+        Bypass()
+        task.wait(1.5)
+        StartFarm()
+    end
 end
+
 
 
 

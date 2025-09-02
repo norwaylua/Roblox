@@ -5,6 +5,7 @@ local StarterGui = game:GetService("StarterGui")
 
 local DeathCount = 0
 local MaxDeaths = 5
+local RestartDelay = 5 -- seconds before restart after stop
 
 local function Notify(msg)
     StarterGui:SetCore("SendNotification", {
@@ -30,7 +31,24 @@ local function Bypass()
 end
 
 local farmLoop
-local function StartFarm()
+local function StopFarm(reason)
+    if farmLoop then
+        farmLoop:Disconnect()
+        farmLoop = nil
+    end
+    getgenv().AutoFarmV2 = false
+    Notify("AutoFarm stopped: " .. reason)
+    task.delay(RestartDelay, function()
+        DeathCount = 0
+        getgenv().AutoFarmV2 = true
+        Notify("AutoFarm restarting...")
+        task.wait(1.5)
+        Bypass()
+        StartFarm()
+    end)
+end
+
+function StartFarm()
     if farmLoop then
         farmLoop:Disconnect()
         farmLoop = nil
@@ -96,12 +114,7 @@ local function StartFarm()
         end)
 
         if not success then
-            if farmLoop then
-                farmLoop:Disconnect()
-                farmLoop = nil
-            end
-            getgenv().AutoFarmV2 = false
-            Notify("Error detected! AutoFarm stopped.")
+            StopFarm("Error detected")
             warn("AutoFarm Error: " .. tostring(err))
         end
     end)
@@ -117,14 +130,9 @@ LocalPlayer.CharacterAdded:Connect(function(char)
 
         humanoid.Died:Connect(function()
             DeathCount += 1
+            Notify("Death " .. DeathCount .. "/" .. MaxDeaths)
             if DeathCount >= MaxDeaths then
-                getgenv().AutoFarmV2 = false
-                if farmLoop then
-                    farmLoop:Disconnect()
-                    farmLoop = nil
-                end
-                Notify("AutoFarm stopped! Died " .. MaxDeaths .. " times.")
-                DeathCount = 0
+                StopFarm("Died " .. MaxDeaths .. " times")
             end
         end)
 

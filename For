@@ -1,0 +1,125 @@
+getgenv().AutoFarmV2 = true
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local StarterGui = game:GetService("StarterGui")
+
+local function Notify(msg)
+    StarterGui:SetCore("SendNotification", {
+        Title = "AutoFarm",
+        Text = msg,
+        Duration = 3
+    })
+end
+
+local function Bypass()
+    pcall(function()
+        local char = LocalPlayer.Character
+        if not char then return end
+        local hrp = char:FindFirstChild("HumanoidRootPart")
+        if not hrp then return end
+        local teleport = workspace:FindFirstChild("Teleport1")
+        if teleport then
+            firetouchinterest(hrp, teleport, 0)
+            task.wait(0.2)
+            firetouchinterest(hrp, teleport, 1)
+        end
+    end)
+end
+
+local farmLoop
+local function StartFarm()
+    if farmLoop then
+        farmLoop:Disconnect()
+        farmLoop = nil
+    end
+    Notify("Farming Started")
+
+    farmLoop = game:GetService("RunService").Heartbeat:Connect(function()
+        local success, err = pcall(function()
+            if not getgenv().AutoFarmV2 then return end
+            local character = LocalPlayer.Character
+            local humanoid = character and character:FindFirstChild("Humanoid")
+            if not character or not humanoid or humanoid.Health <= 0 then
+                if farmLoop then
+                    farmLoop:Disconnect()
+                    farmLoop = nil
+                end
+                return
+            end
+
+            local hrp = character:FindFirstChild("HumanoidRootPart")
+            if not hrp then return end
+
+            local closestEnemy, shortestDistance = nil, math.huge
+            for _, v in pairs(workspace.Enemys:GetChildren()) do
+                if v:IsA("Model") then
+                    local hum = v:FindFirstChild("Humanoid")
+                    local enemyHRP = v:FindFirstChild("HumanoidRootPart")
+                    for _, part in pairs(v:GetDescendants()) do
+                        if part:IsA("BasePart") then
+                            part.CanCollide = false
+                        end
+                    end
+                    if hum and enemyHRP and hum.Health > 0 then
+                        local distance = (hrp.Position - enemyHRP.Position).Magnitude
+                        if distance < shortestDistance then
+                            closestEnemy = v
+                            shortestDistance = distance
+                        end
+                    end
+                end
+            end
+
+            if closestEnemy then
+                local enemyHRP = closestEnemy:FindFirstChild("HumanoidRootPart")
+                if enemyHRP then
+                    hrp.CFrame = enemyHRP.CFrame + Vector3.new(0, -6.2, 0)
+                    local bv = Instance.new("BodyVelocity")
+                    bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+                    bv.Velocity = Vector3.new(0, 0, 0)
+                    bv.Parent = hrp
+                    task.wait()
+                    bv:Destroy()
+                end
+            else
+                hrp.CFrame = CFrame.new(-14.75, -0.03, -147.22)
+                local bv = Instance.new("BodyVelocity")
+                bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+                bv.Velocity = Vector3.new(0, 0, 0)
+                bv.Parent = hrp
+                task.wait()
+                bv:Destroy()
+            end
+        end)
+
+        if not success then
+            if farmLoop then
+                farmLoop:Disconnect()
+                farmLoop = nil
+            end
+            getgenv().AutoFarmV2 = false
+            Notify("Error detected! AutoFarm stopped.")
+            warn("AutoFarm Error: " .. tostring(err))
+        end
+    end)
+end
+
+LocalPlayer.CharacterAdded:Connect(function(char)
+    task.spawn(function()
+        local humanoid = nil
+        repeat
+            humanoid = char:FindFirstChild("Humanoid")
+            task.wait()
+        until humanoid
+        repeat task.wait() until humanoid.Health > 0
+        Bypass()
+        task.wait(1.5)
+        StartFarm()
+    end)
+end)
+
+if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+    Bypass()
+    task.wait(1.5)
+    StartFarm()
+end

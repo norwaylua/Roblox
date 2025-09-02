@@ -6,13 +6,13 @@ getgenv().AutoSpinGift = false -- most anyoning
 if game.PlaceId == 79704652105017 then
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
+local StarterGui = game:GetService("StarterGui")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
 local DeathCount = 0
 local MaxDeaths = 3
 local RestartDelay = 10
-local StarterGui = game:GetService("StarterGui")
-    local TweenService = game:GetService("TweenService")
-    local Players = game:GetService("Players")
-    local RunService = game:GetService("RunService")
+
 
     --// Safe Notify
     local function notify(props)

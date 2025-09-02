@@ -289,7 +289,7 @@ end
     end)
 
     LocalPlayer.CharacterAdded:Connect(function(char)
-    task.wait(1)
+    task.wait(2)
     Bypass()
     wait(2)
     StartFarm()

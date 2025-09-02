@@ -230,6 +230,8 @@ local function StartFarm()
     end)
 end
 
+
+
     --// KillAura
     RunService.RenderStepped:Connect(function()
         if not getgenv().KillAura then return end

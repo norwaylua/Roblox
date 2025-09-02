@@ -1,4 +1,3 @@
-getgenv().AutoFarmV2 = true
 local function StartFarm()
     task.spawn(function()
         while task.wait() do
@@ -7,48 +6,79 @@ local function StartFarm()
             local character = LocalPlayer.Character
             local humanoid = character and character:FindFirstChild("Humanoid")
 
-            if not character or not humanoid then continue end
-            if humanoid.Health  0
-            end
+            if not character or not humanoid then
+                task.wait()
+            else
+                if humanoid.Health <= 0 then
+                    repeat
+                        task.wait()
+                        if not getgenv().AutoFarmV2 then return end
+                    until humanoid.Health > 0
+                end
 
-            if character:FindFirstChild("HumanoidRootPart") then
-                local closestEnemy, shortestDistance = nil, math.huge
+                if character:FindFirstChild("HumanoidRootPart") then
+                    local closestEnemy, shortestDistance = nil, math.huge
 
-                for _, v in pairs(workspace.Enemys:GetChildren()) do
-                    if v:IsA("Model") then
-                        local hum = v:FindFirstChild("Humanoid")
-                        local hrp = v:FindFirstChild("HumanoidRootPart")
+                    for _, v in pairs(workspace.Enemys:GetChildren()) do
+                        if v:IsA("Model") then
+                            local hum = v:FindFirstChild("Humanoid")
+                            local hrp = v:FindFirstChild("HumanoidRootPart")
 
-                        for _, part in pairs(v:GetDescendants()) do
-                            if part:IsA("BasePart") then
-                                part.CanCollide = false
+                            for _, part in pairs(v:GetDescendants()) do
+                                if part:IsA("BasePart") then
+                                    part.CanCollide = false
+                                end
+                            end
+
+                            if hum and hrp and hum.Health > 0 then
+                                local distance = (character.HumanoidRootPart.Position - hrp.Position).Magnitude
+                                if distance < shortestDistance then
+                                    closestEnemy = v
+                                    shortestDistance = distance
+                                end
                             end
                         end
+                    end
 
-                        if hum and hrp and hum.Health > 0 then
-                            local distance = (character.HumanoidRootPart.Position - hrp.Position).Magnitude
-                            if distance  0 and tick() - startTime  0 then
-                                character.HumanoidRootPart.CFrame = enemyHRP.CFrame + Vector3.new(0, 0, 0)
-                            end
+                    if closestEnemy then
+                        local enemyHRP = closestEnemy:FindFirstChild("HumanoidRootPart")
+                        local enemyHum = closestEnemy:FindFirstChild("Humanoid")
 
+                        if enemyHRP and enemyHum then
+                            pcall(function()
+                                character.HumanoidRootPart.CFrame = enemyHRP.CFrame + Vector3.new(0, -6.2, 0)
+
+                                local bv = Instance.new("BodyVelocity")
+                                bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+                                bv.Velocity = Vector3.new(0, 0, 0)
+                                bv.Parent = character.HumanoidRootPart
+
+                                local startTime = tick()
+                                while enemyHum and enemyHum.Health > 0 and tick() - startTime < 10 do
+                                    task.wait(0.2)
+                                end
+
+                                if enemyHum and enemyHum.Health > 0 then
+                                    character.HumanoidRootPart.CFrame = enemyHRP.CFrame + Vector3.new(0, 0, 0)
+                                end
+
+                                task.wait()
+                                bv:Destroy()
+                            end)
+                        end
+                    else
+                        pcall(function()
+                            character.HumanoidRootPart.CFrame = CFrame.new(103.7486, 8.06245, -75.8969)
+                            local bv = Instance.new("BodyVelocity")
+                            bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+                            bv.Velocity = Vector3.new(0, 0, 0)
+                            bv.Parent = character.HumanoidRootPart
                             task.wait()
                             bv:Destroy()
                         end)
                     end
-                else
-                    pcall(function()
-                        character.HumanoidRootPart.CFrame = CFrame.new(103.7486, 8.06245, -75.8969)
-                        local bv = Instance.new("BodyVelocity")
-                        bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
-                        bv.Velocity = Vector3.new(0, 0, 0)
-                        bv.Parent = character.HumanoidRootPart
-                        task.wait()
-                        bv:Destroy()
-                    end)
                 end
             end
         end
     end)
 end
-
-StartFarm()

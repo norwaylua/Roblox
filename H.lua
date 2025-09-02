@@ -13,12 +13,16 @@ if game.PlaceId == 79704652105017 then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/norwaylua/Roblox/refs/heads/main/Delta%20support.lua"))()
         return
     end
-
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+    local StarterGui = game:GetService("StarterGui")
+    local DeathCount = 0
+    local MaxDeaths = 3
+    local RestartDelay = 10
     local StarterGui = game:GetService("StarterGui")
     local TweenService = game:GetService("TweenService")
-    local Players = game:GetService("Players")
     local RunService = game:GetService("RunService")
-    local LocalPlayer = Players.LocalPlayer
+    
 
     --// Safe Notify
     local function notify(props)
@@ -162,13 +166,6 @@ if game.PlaceId == 79704652105017 then
     end
 end
 
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local StarterGui = game:GetService("StarterGui")
-
-local DeathCount = 0
-local MaxDeaths = 3
-local RestartDelay = 10
 local function Notify(msg)
     StarterGui:SetCore("SendNotification", {
         Title = "AutoFarmV2AutoFix",

@@ -299,6 +299,7 @@ end
                 Bypass()
                 task.wait(2)
                 while humanoid and humanoid.Health > 0 do
+                    Bypass()
                     StartFarm()
                     task.wait(5)
                 end

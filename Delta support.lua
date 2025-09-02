@@ -276,11 +276,25 @@ end
     end)
 
     LocalPlayer.CharacterAdded:Connect(function(char)
-    task.wait(2)
-    Bypass()
-    wait(2)
-    StartFarm()
+    local humanoid = char:WaitForChild("Humanoid", 10)
+    local hrp = char:WaitForChild("HumanoidRootPart", 10)
+
+    if humanoid and hrp then
+        task.delay(2, function()
+            Bypass()
+            task.wait(2)
+            StartFarm()
+        end)
+    else
+        task.wait(5)
+        if LocalPlayer.Character then
+            Bypass()
+            task.wait(2)
+            StartFarm()
+        end
+    end
 end)
+
 
 Bypass()
 wait(2)

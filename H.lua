@@ -228,7 +228,7 @@ local function StartFarm()
                     end
                 else
                     pcall(function()
-                        character.HumanoidRootPart.CFrame = CFrame.new(0.8440650701522827, -3.1204583644866943, -157.3159637451172)
+                        character.HumanoidRootPart.CFrame = CFrame.new(-14.7518082, -0.0393581912, -147.224426, 0.999967396, -0.00795417745, -0.00140253874, -5.14597115e-11, 0.173648492, -0.98480767, 0.00807688385, 0.984775603, 0.173642829)
                         local bv = Instance.new("BodyVelocity")
                         bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
                         bv.Velocity = Vector3.new(0, 0, 0)

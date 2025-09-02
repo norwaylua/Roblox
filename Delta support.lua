@@ -284,7 +284,10 @@ end
             if humanoid and hrp then
                 Bypass()
                 task.wait(2)
-                StartFarm()
+                while humanoid and humanoid.Health > 0 do
+                    StartFarm()
+                    task.wait(5)
+                end
                 break
             end
 
@@ -292,6 +295,7 @@ end
         end
     end)
 end)
+
 
 
 

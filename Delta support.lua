@@ -252,7 +252,7 @@ function StartFarm()
                     bv:Destroy()
                 end
             else
-                hrp.CFrame = CFrame.new(-14.75, -0.03, -147.22)
+                hrp.CFrame = CFrame.new(-14.7518082, -0.0393581912, -147.224426, 0.999967396, -0.00795417745, -0.00140253874, -5.14597115e-11, 0.173648492, -0.98480767, 0.00807688385, 0.984775603, 0.173642829)
                 local bv = Instance.new("BodyVelocity")
                 bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
                 bv.Velocity = Vector3.new(0, 0, 0)
@@ -294,11 +294,7 @@ LocalPlayer.CharacterAdded:Connect(function(char)
     end)
 end)
 
-if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
-    Bypass()
-    task.wait(1.5)
-    StartFarm()
-end
+
     
 
     --// KillAura
@@ -346,27 +342,11 @@ end
         vu:ClickButton2(Vector2.new())
     end)
 
-    LocalPlayer.CharacterAdded:Connect(function(char)
-    task.spawn(function()
-        while char and char.Parent do
-            local humanoid = char:FindFirstChild("Humanoid")
-            local hrp = char:FindFirstChild("HumanoidRootPart")
-
-            if humanoid and hrp then
-                Bypass()
-                task.wait(2)
-                while humanoid and humanoid.Health > 0 do
-                    Bypass()
-                    StartFarm()
-                    task.wait(5)
-                end
-                break
-            end
-
-            task.wait(1)
-        end
-    end)
-end)
+    if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+    Bypass()
+    task.wait(1.5)
+    StartFarm()
+end
 
 
 

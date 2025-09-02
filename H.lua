@@ -352,13 +352,6 @@ LocalPlayer.CharacterAdded:Connect(function(char)
     end)
 end)
 
-if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
-    if DeathCount < MaxDeaths then
-        Bypass()
-        task.wait(1.5)
-        StartFarm()
-    end
-end
 
 Bypass()
 wait(2)

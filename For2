@@ -5,11 +5,10 @@ local StarterGui = game:GetService("StarterGui")
 
 local DeathCount = 0
 local MaxDeaths = 5
-local RestartDelay = 5 -- seconds before restart after stop
-
+local RestartDelay = 5 
 local function Notify(msg)
     StarterGui:SetCore("SendNotification", {
-        Title = "AutoFarm",
+        Title = "AutoFarmV2AutoFix",
         Text = msg,
         Duration = 3
     })
@@ -41,7 +40,7 @@ local function StopFarm(reason)
     task.delay(RestartDelay, function()
         DeathCount = 0
         getgenv().AutoFarmV2 = true
-        Notify("AutoFarm restarting...")
+        Notify("restarting...")
         task.wait(1.5)
         Bypass()
         StartFarm()
@@ -132,7 +131,7 @@ LocalPlayer.CharacterAdded:Connect(function(char)
             DeathCount += 1
             Notify("Death " .. DeathCount .. "/" .. MaxDeaths)
             if DeathCount >= MaxDeaths then
-                StopFarm("Died " .. MaxDeaths .. " times")
+                StopFarm("Dead =" .. MaxDeaths .. " times")
             end
         end)
 

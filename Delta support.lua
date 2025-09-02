@@ -285,10 +285,10 @@ end
             local hrp = char:FindFirstChild("HumanoidRootPart")
 
             if humanoid and hrp then
-                wait(1)
                 Bypass()
                 task.wait(2)
                 while humanoid and humanoid.Health > 0 do
+                    Bypass()
                     StartFarm()
                     task.wait(5)
                 end

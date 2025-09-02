@@ -162,7 +162,6 @@ if game.PlaceId == 79704652105017 then
     end
 end
 
-getgenv().AutoFarmV2 = true
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local StarterGui = game:GetService("StarterGui")
@@ -204,7 +203,7 @@ local function StopFarm(reason)
     task.delay(RestartDelay, function()
         DeathCount = 0
         getgenv().AutoFarmV2 = true
-        Notify("restarting...")
+        Notify("restarting... running in 10sec")
         task.wait(1.5)
         Bypass()
         StartFarm()

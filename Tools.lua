@@ -1,15 +1,9 @@
 if game.CoreGui:FindFirstChild("ToolSelectorUI") then
     game.CoreGui.ToolSelectorUI:Destroy()
 end
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local function Bypass()
-    firetouchinterest(LocalPlayer.Character.HumanoidRootPart, workspace.Teleport1, 0)
-    task.wait(0.1)
-    firetouchinterest(LocalPlayer.Character.HumanoidRootPart, workspace.Teleport1, 1)
-end
 
 local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 local LocalPlayer = Players.LocalPlayer
@@ -157,7 +151,6 @@ LocalPlayer.CharacterAdded:Connect(function(char)
     char:WaitForChild("Humanoid")
     task.wait(1)
     if Config.SelectedTool then
-        Bypass()
         EquipToolByName(Config.SelectedTool)
         Button.Text = "Selected: " .. Config.SelectedTool
     end
